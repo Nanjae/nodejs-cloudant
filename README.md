@@ -734,14 +734,23 @@ db.geo('city', 'city_points', query, function(er, result) {
 
 If you wish to see further information about what the nodejs-cloudant library is doing, then its debugging output can be sent to the console by simply setting an environment variable:
 
-    export DEBUG=cloudant
+    export DEBUG=cloudant*
     # then run your Node.js application
 
-Debug messages will be displayed to indicate each of the Cloudant-specific function calls.
+There are several debuggers used within the library. Specifying `DEBUG=cloudant*` will show all logging output. You can also choose to capture output from a specific debugger. Here are some examples:
 
-If you want to see all debug messages, including calls made by the underlying `nano` library and HTTP requests/responses sent, then simply change the environment variable to
+- `DEBUG="cloudant:client"`
+  Only show events from the underlying request client.
+- `DEBUG="cloudant:plugins*"`
+  Only show events from plugins.
+- `DEBUG="cloudant:plugins:cookieauth"`
+  Only show events from the cookie authentication plugin (if enabled).
+- `DEBUG="cloudant:plugins:iamauth"`
+  Only show events from the IAM authentication plugin (if enabled).
 
-    export DEBUG=cloudant,nano
+If you want to see all debug messages, including calls made by the underlying `nano` library and HTTP requests/responses sent, then simply change the environment variable to:
+
+    export DEBUG=cloudant*,nano
     # then run your Node.js application
 
 This will log every request and response as in the following example:
